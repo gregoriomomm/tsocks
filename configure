@@ -1330,7 +1330,7 @@ if eval "test \"`echo '$ac_cv_header_'$ac_safe`\" = yes"; then
   :
 else
   echo "$ac_t""no" 1>&6
-{ echo "configure: error: "sys/poll.h not found"" 1>&2; exit 1; }
+{ echo "configure: error: "poll.h not found"" 1>&2; exit 1; }
 fi
 
 
@@ -2235,7 +2235,7 @@ do
 #line 2236 "configure"
 #include "confdefs.h"
 
-      #include <sys/poll.h>
+      #include <poll.h>
       int poll($testproto);
     
 int main() {
