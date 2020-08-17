@@ -1299,16 +1299,16 @@ else
 fi
 
 
-ac_safe=`echo "sys/poll.h" | sed 'y%./+-%__p_%'`
-echo $ac_n "checking for sys/poll.h""... $ac_c" 1>&6
-echo "configure:1305: checking for sys/poll.h" >&5
+ac_safe=`echo "poll.h" | sed 'y%./+-%__p_%'`
+echo $ac_n "checking for poll.h""... $ac_c" 1>&6
+echo "configure:1305: checking for poll.h" >&5
 if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
 #line 1310 "configure"
 #include "confdefs.h"
-#include <sys/poll.h>
+#include <poll.h>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
 { (eval echo configure:1315: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
