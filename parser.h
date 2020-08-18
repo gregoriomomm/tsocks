@@ -7,6 +7,8 @@
 
 /* Structure definitions */
 
+#define YES 1 
+#define NO 0
 /* Structure representing one server specified in the config */
 struct serverent {
 	int lineno; /* Line number in conf file this path started on */
@@ -17,6 +19,7 @@ struct serverent {
 	char *defpass; /* Default password for this socks server */
 	struct netent *reachnets; /* Linked list of nets from this server */
 	struct serverent *next; /* Pointer to next server entry */
+        int fallback; /* Fallback option */
 };
 
 /* Structure representing a network */
