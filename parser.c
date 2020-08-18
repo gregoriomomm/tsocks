@@ -396,12 +396,12 @@ static int handle_defpass(struct parsedfile *config, int lineno, char *value) {
 
 static int handle_deffallback(struct parsedfile *config, int lineno, char *value) {
 
-	if (!strcmp(value, "yes") && !strcmp(value, "no"))
+	if (strcmp(value, "yes") && strcmp(value, "no"))
 		show_msg(MSGERR, "Fallback may only be specified "
 			   " with (yes) or (no) option at line %d "
 			   "in configuration file\n", lineno);
 	else
-	    if (strcmp(value, "yes"))
+	    if (!strcmp(value, "yes"))
 		currentcontext->fallback = YES;
 	    else
 		currentcontext->fallback = NO;
