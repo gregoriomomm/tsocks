@@ -31,6 +31,7 @@ static int handle_port(struct parsedfile *config, int, char *);
 static int handle_local(struct parsedfile *, int, char *);
 static int handle_defuser(struct parsedfile *, int, char *);
 static int handle_defpass(struct parsedfile *, int, char *);
+static int handle_deffallback(struct parsedfile *, int, char *);
 static int make_netent(char *value, struct netent **ent);
 
 int read_config (char *filename, struct parsedfile *config) {
@@ -150,6 +151,8 @@ static int handle_line(struct parsedfile *config, char *line, int lineno) {
 				handle_defuser(config, lineno, words[2]);
 			} else if (!strcmp(words[0], "default_pass")) {
 				handle_defpass(config, lineno, words[2]);
+			} else if (!strcmp(words[0], "fallback")) {
+				handle_deffallback(config, lineno, words[2]);
 			} else if (!strcmp(words[0], "local")) {
 				handle_local(config, lineno, words[2]);
 			} else {
@@ -385,6 +388,34 @@ static int handle_defpass(struct parsedfile *config, int lineno, char *value) {
 				   lineno, currentcontext->lineno);
 	} else {
 		currentcontext->defpass = strdup(value);
+	}
+	
+	return(0);
+}
+
+
+static int handle_deffallback(struct parsedfile *config, int lineno, char *value) {
+
+	if (currentcontext->fallback != NULL) {
+		if (currentcontext == &(config->defaultserver)) 
+			show_msg(MSGERR, "Fallback may only be specified "
+				   "once for default server, at line %d "
+				   "in configuration file\n", lineno);
+		else
+			show_msg(MSGERR, "Fallback password may only be specified "
+				   "once per path on line %d in configuration "
+				   "file. (Path begins on line %d)\n",
+				   lineno, currentcontext->lineno);
+	} else {
+		if (!strcmp(value, "yes") && !strcmp(value, "no"))
+			show_msg(MSGERR, "Fallback may only be specified "
+				   " with (yes) or (no) option at line %d "
+				   "in configuration file\n", lineno);
+		else
+		    if (strcmp(value, "yes"))
+		        currentcontext->fallback = YES;
+		    else
+		        currentcontext->fallback = NO;
 	}
 	
 	return(0);
