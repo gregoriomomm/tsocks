@@ -290,10 +290,15 @@ int connect(CONNECT_SIGNATURE) {
             (path->address ? path->address : "(Not Provided)"));
    if (path->address == NULL) {
       if (path == &(config->defaultserver)) 
-         show_msg(MSGERR, "Connection needs to be made "
-                          "via default server but "
-                          "the default server has not "
-                          "been specified\n");
+         if (path->fallback) {	 
+	    return(realconnect(__fd, __addr, __len));
+	 } else {
+	    show_msg(MSGERR, "Connection needs to be made "
+	 		     "via default server but "
+			     "the default server has not "
+			     "been specified. Fallback is 'no' so "
+			     "coudln't establish the connection.\n");
+	 }
       else 
          show_msg(MSGERR, "Connection needs to be made "
                           "via path specified at line "
